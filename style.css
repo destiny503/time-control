@@ -42,6 +42,9 @@ body {
 	max-width: 800px;
 	height: 95%;
 }
+@media (max-width: 768px) {
+	.main {height: 80%;}
+}
 
 .card {
 	display: flex;
