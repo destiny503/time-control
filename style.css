@@ -29,6 +29,10 @@ body {
 	display: flex;
 	height: 100vh;
 }
+@media (max-width: 768px) {
+	body {overflow: hidden;}
+	.time-control {height: 85vh;}
+}
 
 .main {
 	display: flex;
@@ -41,9 +45,6 @@ body {
 	width: 80%;
 	max-width: 800px;
 	height: 95%;
-}
-@media (max-width: 768px) {
-	.main {height: 80%;}
 }
 
 .card {
