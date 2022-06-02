@@ -1,0 +1,135 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+	margin: 0;
+}
+
+body {
+	background-color: #222222;
+}
+
+.time-control {
+	display: flex;
+	height: 100vh;
+}
+
+.main {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	border: 2px solid #000000;
+	border-radius: 20px;
+	background-color: #111111;
+	margin: auto;
+	width: 80%;
+	max-width: 800px;
+	height: 95%;
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+	border: 2px solid #000000;
+	border-radius: 20px;
+	background-color: #222222;
+	width: 23%;
+	max-width: 250px;
+	height: 98%;
+}
+
+.card__power {
+	border: 2px solid #000000;
+	border-radius: 20px;
+	background-color: #222222;
+	width: 90%;
+	max-width: 220px;
+	height: 50%;
+	margin-top: 5%;
+}
+
+.card__desc {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	border: 2px solid #000000;
+	border-radius: 20px;
+	background-color: #111111;
+	user-select: none;
+	width: 95%;
+	max-width: 220px;
+	height: 95%;
+	margin-top: 5%;
+	margin-bottom: 5%;
+	max-height: 25%;
+}
+
+.card__name {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 2px solid #000000;
+	border-radius: 20px;
+	background-color: #444444;
+	text-transform: uppercase;
+	cursor: default;
+	max-height: 50px;
+	min-width: 50px;
+	width: 100%;
+	margin: 5%;
+}
+
+.card__incBtn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 2px solid #000000;
+	border-radius: 20px;
+	background-color: #444444;
+	cursor: pointer;
+	min-width: 50px;
+	max-height: 50px;
+	width: 100%;
+	margin-left: 5%;
+	margin-right: 5%;
+}
+
+.card__decBtn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 2px solid #000000;
+	border-radius: 20px;
+	background-color: #444444;
+	cursor: pointer;
+	max-height: 50px;
+	min-width: 50px;
+	width: 100%;
+	margin: 5%;
+}
+
+canvas {
+	position: absolute;
+	top: 0px;
+	z-index: -1;
+	height: 100%;
+	width: 100%;
+}
