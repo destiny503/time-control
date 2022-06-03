@@ -1,41 +1,107 @@
-let incBtnArr = document.querySelectorAll('.card__incBtn')
-let decBtnArr = document.querySelectorAll('.card__decBtn')
+const incBtnArr = document.querySelectorAll('.card__incBtn')
+const decBtnArr = document.querySelectorAll('.card__decBtn')
 let thisPower = []
 let thisName = ''
 let thisDesc = []
-let data = {
-    'ДЕЛА': 0,
-    'ОТДЫХ': 0,
-    'РАБОТА': 0,
-    'УЧЕБА': 0
-}
-const sumData = data => Object.values(data).reduce((a, b) => a + b);
+const sumData = data => Object.values(data).reduce((a, b) => +a + +b);
+let currentTime = +new Date()
+if (!localStorage.getItem('maxSaveTime')) localStorage.setItem('maxSaveTime', 28800000)
 
-for (incBtn of incBtnArr) {
-    incBtn.addEventListener('click', increment)
+main()
+
+function main() {
+    
+    let logTime = Number(localStorage.getItem('maxSaveTime')) / 60000
+    console.log(`Автоматический сброс через ${logTime} часов офлайна\n\nизменить время в часах: changeTime(8)\n\nручной сброс: reset()`)
+
+    // если прогресс пошёл запускается таймер, выполнить всё или умереть!
+    let flag = 0
+    if (localStorage.length > flag) {
+
+        let lostTime = currentTime - Number(localStorage.getItem('saveTime'))
+        if (lostTime < localStorage.getItem('maxSaveTime')) {
+            progressLoad()
+        } else {
+            reset()
+        }
+    }
+    if (localStorage.length < 3) {
+        localStorage.setItem('saveTime', currentTime)
+        flag = 1
+    }
+    
+    // вешаются обработчики клика на все кнопки + и -
+    for (incBtn of incBtnArr) {
+        incBtn.addEventListener('click', increment)
+    }
+    for (decBtn of decBtnArr) {
+        decBtn.addEventListener('click', decrement)
+    }
 }
 
-for (decBtn of decBtnArr) {
-    decBtn.addEventListener('click', decrement)
+// изменить таймер сброса в часах
+function changeTime(time) {
+    localStorage.setItem('maxSaveTime', (time * 60000))
+    return 'сохранено'
+}
+
+// сброс прогресса с сохранением таймера
+function reset() {
+    let temp = localStorage.getItem('maxSaveTime')
+    localStorage.clear()
+    localStorage.setItem('maxSaveTime', temp)
+    window.location.reload(true);
+}
+
+// загрузка прогресса
+function progressLoad() {
+    let cards = document.querySelectorAll('.card')
+
+    for (let i = 0; i < cards.length; i++) {
+        let nameLoad = cards[i].querySelector('.card__name').innerText
+        let savedPower = Number(localStorage.getItem(nameLoad))
+        let powerArr = cards[i].querySelectorAll('.card__power')
+        let inDesc = cards[i].querySelector('.card__desc').children
+
+        for (let j = 0; j < savedPower; j++) {
+            powerArr[j].style.backgroundColor = 'green'
+        }
+        if (powerArr.length === savedPower) {
+            cards[i].style.border = '2px solid green'
+            cards[i].style.boxShadow = '0 0 20px green'
+            for (item of inDesc) {
+                item.style.backgroundColor = 'green'
+            }
+        }
+    }
+
+    if (localStorage.length > 0) {
+        if (sumData(localStorage) === document.querySelectorAll('.card__power').length) {
+            fireworks()
+        }
+    }
 }
 
 function increment() {
     thisPower = this.closest('.card').querySelectorAll('.card__power')
     thisDesc = this.closest('.card__desc').querySelectorAll('div')
     thisName = this.closest('.card__desc').querySelector('.card__name').innerText
+    getData = Number(localStorage.getItem(thisName))
 
-    if (data[thisName] < thisPower.length) {
-        thisPower[data[thisName]].style.backgroundColor = 'green'
-        data[thisName]++
+    if (getData < thisPower.length) {
+        thisPower[getData].style.backgroundColor = 'green'
+        localStorage.setItem(thisName, getData + 1)
     }
-    if (thisPower.length === data[thisName]) {
+
+    if (thisPower.length === (getData + 1)) {
         this.closest('.card').style.border = '2px solid green'
         this.closest('.card').style.boxShadow = '0 0 20px green'
         for (item of thisDesc) {
             item.style.backgroundColor = 'green'
         }
     }
-    if (sumData(data) === document.querySelectorAll('.card__power').length) {
+
+    if ((sumData(localStorage)) === document.querySelectorAll('.card__power').length) {
         fireworks()
     }
 }
@@ -44,23 +110,27 @@ function decrement() {
     thisPower = this.closest('.card').querySelectorAll('.card__power')
     thisDesc = this.closest('.card__desc').querySelectorAll('div')
     thisName = this.closest('.card__desc').querySelector('.card__name').innerText
+    getData = Number(localStorage.getItem(thisName)) - 1
 
-    if (data[thisName] > 0) {
-        data[thisName]--
-        thisPower[data[thisName]].style.backgroundColor = '#222222'
+    if ((getData + 1) > 0) {
+        thisPower[getData].style.backgroundColor = '#222222'
+        localStorage.setItem(thisName, getData)
     }
-    if (thisPower.length > data[thisName]) {
+
+    if (thisPower.length > getData) {
         this.closest('.card').style.border = '2px solid #000000'
         this.closest('.card').style.boxShadow = null
         for (item of thisDesc) {
             item.style.backgroundColor = '#444444'
         }
     }
+
+    if (getData === 0) {
+        localStorage.removeItem(thisName)
+    }
 }
 
-
 // фейерверк
-
 function fireworks() {
 
     const rndColor = () => {

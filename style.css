@@ -31,7 +31,7 @@ body {
 }
 @media (max-width: 768px) {
 	body {overflow: hidden;}
-	.time-control {height: 85vh;}
+	.time-control {height: 90vh;}
 }
 
 .main {
