@@ -5,7 +5,8 @@ let thisName = ''
 let thisDesc = []
 const sumData = data => Object.values(data).reduce((a, b) => +a + +b);
 let currentTime = +new Date()
-if (localStorage.getItem('maxSaveTime') < 60000) localStorage.setItem('maxSaveTime', 28800000)
+let tempTime = 28800000
+if (localStorage.getItem('maxSaveTime') < 60000) localStorage.setItem('maxSaveTime', tempTime)
 
 main()
 
