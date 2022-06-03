@@ -5,14 +5,14 @@ let thisName = ''
 let thisDesc = []
 const sumData = data => Object.values(data).reduce((a, b) => +a + +b);
 let currentTime = +new Date()
-if (!localStorage.getItem('maxSaveTime')) localStorage.setItem('maxSaveTime', 28800000)
+if (localStorage.getItem('maxSaveTime') < 60000) localStorage.setItem('maxSaveTime', 28800000)
 
 main()
 
 function main() {
     
-    let logTime = Number(localStorage.getItem('maxSaveTime')) / 3600000
-    console.log(`Автоматический сброс через ${logTime} часов офлайна\n\nизменить время в часах: changeTime(8)\n\nручной сброс: reset()`)
+    let logTime = Number(localStorage.getItem('maxSaveTime'))
+    console.log(`Автоматический сброс через ${logTime / 1000 / 60 / 60} часов офлайна\n\nизменить время в часах: changeTime(8)\n\nручной сброс: reset()`)
 
     // если прогресс пошёл запускается таймер, выполнить всё или умереть!
     let flag = 0
@@ -41,7 +41,7 @@ function main() {
 
 // изменить таймер сброса в часах
 function changeTime(time) {
-    localStorage.setItem('maxSaveTime', (time * 3600000))
+    localStorage.setItem('maxSaveTime', (time * 60 * 60 * 1000))
     return 'сохранено'
 }
 
