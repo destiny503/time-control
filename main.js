@@ -11,7 +11,7 @@ main()
 
 function main() {
     
-    let logTime = Number(localStorage.getItem('maxSaveTime')) / 60000
+    let logTime = Number(localStorage.getItem('maxSaveTime')) / 3600000
     console.log(`Автоматический сброс через ${logTime} часов офлайна\n\nизменить время в часах: changeTime(8)\n\nручной сброс: reset()`)
 
     // если прогресс пошёл запускается таймер, выполнить всё или умереть!
@@ -41,7 +41,7 @@ function main() {
 
 // изменить таймер сброса в часах
 function changeTime(time) {
-    localStorage.setItem('maxSaveTime', (time * 60000))
+    localStorage.setItem('maxSaveTime', (time * 3600000))
     return 'сохранено'
 }
 
