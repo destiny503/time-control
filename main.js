@@ -77,7 +77,9 @@ function progressLoad() {
     }
 
     if (localStorage.length > 0) {
-        if (sumData(localStorage) === document.querySelectorAll('.card__power').length) {
+        let tempTime1 = localStorage.getItem('maxSaveTime')
+        let tempTime2 = localStorage.getItem('saveTime')
+        if ((sumData(localStorage) - tempTime1 - tempTime2) === document.querySelectorAll('.card__power').length) {
             fireworks()
         }
     }
@@ -102,7 +104,9 @@ function increment() {
         }
     }
 
-    if ((sumData(localStorage)) === document.querySelectorAll('.card__power').length) {
+    let tempTime1 = localStorage.getItem('maxSaveTime')
+    let tempTime2 = localStorage.getItem('saveTime')
+    if ((sumData(localStorage) - tempTime1 - tempTime2) === document.querySelectorAll('.card__power').length) {
         fireworks()
     }
 }
