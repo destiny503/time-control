@@ -6,4 +6,4 @@
 
 Ручной сброс через команду reset() в консоли, на экран ничего не выводил для минимализма и адаптива.
 
-[Открыть](https://tsartsartsar.github.io/time-control/)
+[Открыть](https://destiny503.github.io/time-control/)
